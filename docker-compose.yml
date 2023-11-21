@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:12-bullseye'
+    restart: always
+    container_name: db
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=YOUR_DB_USERNAME
+      - POSTGRES_PASSWORD=YOUR_DB_PASSWORD
+      - POSTGRES_DB=YOUR_DB_NAME
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  app:
+    image: nikitakvl/telegram-bot.app
+    container_name: telegram_bot
+    environment:
+      - SPRING_DATASOURCE_USERNAME=YOUR_DB_USERNAME
+      - SPRING_DATASOURCE_PASSWORD=YOUR_DB_PASSWORD
+      - TELEGRAM_BOT_NAME=YOUR_BOT_NAME
+      - TELEGRAM_BOT_TOKEN=YOUR_BOT_TOKEN
+      - CHAT_API_KEY=YOUR_CHAT_API_KEY
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
