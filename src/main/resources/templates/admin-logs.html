@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/style.css" rel="stylesheet">
+    <title>Logs</title>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin">
+                Admin page
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main-container">
+    <div class="col-md-2 sidebar">
+        <div class="row">
+            <div class="absolute-wrapper"></div>
+            <div class="side-menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+                            <li><a href="/admin/logs"><span class="glyphicon glyphicon-cloud"></span>Logs</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div align="center">
+                <h5 th:text="${status}"></h5>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModal" data-whatever="@mdo">Send message
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Logs
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Chat Id</th>
+                        <th>Username</th>
+                        <th>Request Message</th>
+                        <th>Response Message</th>
+                    </tr>
+                    <tr th:each="log:${logs}">
+                        <td th:text="${log.chatId}"></td>
+                        <td th:text="${log.userName}"></td>
+                        <td th:text="${log.requestMessage}"></td>
+                        <td th:text="${log.responseMessage}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="#"
+                      th:action="@{/admin/send-message}"
+                      th:object="${requestMessageDto}"
+                      method="post"
+                      id="sendMessage">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea th:field="*{message}" class="form-control"
+                                  id="message-text"></textarea>
+                    </div>
+                    <input type="text" th:field="*{chatId}" id="chatId" placeholder="ChatId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                </button>
+                <button type="submit" class="btn btn-primary" form="sendMessage">Send
+                    Message
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

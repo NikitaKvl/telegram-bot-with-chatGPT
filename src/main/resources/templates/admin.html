@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/style.css" rel="stylesheet">
+    <title>Admin page</title>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://localhost:8080/admin">
+                Admin page
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main-container">
+    <div class="col-md-2 sidebar">
+        <div class="row">
+            <div class="absolute-wrapper"></div>
+            <div class="side-menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+                            <li><a href="/admin/logs"><span class="glyphicon glyphicon-cloud"></span>Logs</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Add new user
+            </div>
+            <div th:text="${status}"></div>
+            <div class="panel-collapse">
+                <form action="#"
+                      th:action="@{/register}"
+                      th:object="${userRequestDto}"
+                      method="post"
+                      id="registerNewUser">
+                    <label for="username">Username</label>
+                    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+                    <label for="password">Password</label>
+                    <input type="password" th:field="*{password}" id="password" placeholder="Password">
+                    <label for="role">Role</label>
+                    <select name="role" id="role" form="registerNewUser">
+                        <option value="ADMIN">Admin</option>
+                        <option value="USER">User</option>
+                    </select>
+                    <input type="submit" value="Add User">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
