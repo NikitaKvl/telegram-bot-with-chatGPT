@@ -36,4 +36,3 @@ docker-compose up
 ```
 
 After all these steps you will be able to run this project locally.
-
